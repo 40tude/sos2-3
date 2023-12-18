@@ -18,6 +18,7 @@
 */
 
 /* Include definitions of the multiboot standard */
+// #include <bootstrap/multiboot.h>
 #include <drivers/bochs.h>
 #include <drivers/x86_videomem.h>
 #include <hwcore/exception.h>
@@ -31,7 +32,8 @@
 #include <sos/multiboot2.h>
 #include <sos/physmem.h>
 
-/* Helper function to display each bits of a 32bits integer on the screen as dark or light carrets */
+/* Helper function to display each bits of a 32bits integer on the
+   screen as dark or light carrets */
 static void display_bits(unsigned char row, unsigned char col, unsigned char attribute, sos_ui32_t integer) {
   int i;
   /* Scan each bit of the integer, MSb first */
@@ -120,7 +122,9 @@ void sos_main(unsigned long magic, unsigned long addr) {
 
   sos_paddr_t sos_kernel_core_base_paddr, sos_kernel_core_top_paddr;
 
-  /* Grub sends us a structure, called multiboot_info_t with a lot of precious informations about the system, see the multiboot documentation for more information. */
+  /* Grub sends us a structure, called multiboot_info_t with a lot of
+     precious informations about the system, see the multiboot
+     documentation for more information. */
   // multiboot_info_t *mbi;
   // mbi = (multiboot_info_t *)addr;
 
