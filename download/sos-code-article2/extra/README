@@ -1,0 +1,73 @@
+
+Contents of the extra/ directory
+================================
+
+Data and configuration files to support generation of sos on non-x86
+and/or grub-less hosts:
+ - dot.mkvars: file to copy as .mkvars in the root directory to
+   compile on a non-x86 host, and to generate the grub floppy image on
+   a grub-less host
+ - grub.img.gz: compressed image of a Grub floppy (without any
+   kernel). Used by dot.mkvars.
+ - mtoolsrc: file needed by .mkvars to compile a the floppy image
+
+Support of a sos-specific boot sector:
+ - Makefile: rules to compile sos_bsect.img, the floppy image with the
+   boot sector and the Sos
+ - bootsect.S: x86 Sos boot sector (GNU as). Depends on sos_bsect.lds
+ - sos_bsect.lds: ld script to bind the boot sector with the remaining
+   of the kernel
+
+Misc:
+ - qemu-port-e9.diff: patch over qemu to support the bochs "port 0xe9 hack"
+
+
+What you can do with these files
+================================
+
+
+*** Compile SOS from another architecture:
+------------------------------------------
+ - compile a cross-compiler for the i586-gnu target. This involves
+   compiling the binutils and gcc. Here are example configuration
+   options for them:
+   binutils (replace sparc-cun-solaris with your arch):
+     ../binutils-2.13/configure --prefix=/udd/ddecotig/temp_dd/xgcc/host-sparc-solaris7/stow/binutils-2.11 --host=sparc-sun-solaris2.7 i586-gnu
+     make && make install
+   gcc (ditto):
+     CFLAGS="-O2 -Dinhibit_libc" ../gcc-3.2/configure --target=i586-gnu --prefix=/udd/ddecotig/temp_dd/xgcc/host-sparc-solaris7/stow/gcc-3.2 --with-as=/udd/ddecotig/temp_dd/xgcc/host-sparc-solaris7/bin/as --with-ld=/udd/ddecotig/temp_dd/xgcc/host-sparc-solaris7/bin/ld --with-gnu-as --with-gnu-ld --enable-languages=c --disable-shared --disable-multilib --disable-nls --enable-threads=single
+     make && make install
+ - compile the mtools
+ - copy dot.mkvars to the root directory of SOS, as ".mkvars"
+ - customize the CC/LD/... variables to suit your cross-compiler
+   installatioon
+ - now you may run make from the SOS root directory, it should
+   generate the Grub boot floppy image. The following warning is
+   normal:
+     .mkvars:16: attention : écrasement des commandes pour la cible « grub-sos.img »
+     Makefile:92: attention : anciennes commandes ignorées pour la cible « grub-sos.img »
+
+
+*** To compile SOS from an x86 where grub is not or incorrectly installed:
+--------------------------------------------------------------------------
+ - copy dot.mkvars to the root directory of SOS, as ".mkvars"
+ - customize the CC/LD/... variables to suit your cross-compiler
+   installatioon
+ - now you may run make from the SOS root directory, it should
+   generate the Grub boot floppy image. The following warning is
+   normal:
+     .mkvars:16: attention : écrasement des commandes pour la cible « grub-sos.img »
+     Makefile:92: attention : anciennes commandes ignorées pour la cible « grub-sos.img »
+
+
+*** To compile SOS with its own bootloader:
+-------------------------------------------
+ - for cross-architecture compilation: see above
+ - cd to this extra/ directory
+ - run 'make'
+ - the floppy image is: sos_bsect.img
+ NOTE : SOS will not boot correctly this way after article 2 !
+
+
+--
+David Decotigny

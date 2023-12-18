@@ -1,0 +1,90 @@
+
+                    SOS: A Simple Operating System
+
+
+This   is   SOS,   a   Simple   Operating   System   for   i386-family
+processors. This is  as simple as possible to show a  way to program a
+basic Operating System on real  common hardware (PC).  The code should
+be easily readable and understandable thanks to frequent comments, and
+references to external documentation.  We chose to implement the basic
+features  of an OS,  thus making  design decisions  targetting towards
+simplicity  of  understanding,  covering  most  of  the  OS  classical
+concepts,  but  not  aiming  at  proposing  yet  another  full-fledged
+competitive OS  (Linux is  quite good at  it). However, for  those who
+would  like to  propose some  enhancements, we  are open  to  any code
+suggestions (patches only,  please).  And yes, there might  be bugs in
+the code, so please send us any bug report, and/or patches !
+
+The OS comes as  a set of articles (in french) to  be published in the
+journal  "Linux Magazine  France". Each  month, the  part of  the code
+related to the current article's theme is released (see VERSION file),
+and the resulting OS can  be successfully compiled and run, by booting
+it from a floppy on a real  machine (tested AMD k7, Cyrix and Intel P4
+pentiums), or through an x86  emulator (bochs or qemu).  The resulting
+OS is available as a multiboot compliant ELF kernel (sos.elf) and as a
+floppy image (fd.img).  It provides  a very very very basic demo whose
+aim is to  understand how everything works, not  to animate sprites on
+the screen with 5:1 dolby sound.
+
+The initial technical features and lack-of-features of the OS are:
+ - monolithic kernel, fully interruptible, non-preemptible (big kernel
+   lock), target machines = i386 PC or better
+ - compiles on any host where the gcc/binutils toolchain (target
+   i586-gnu) is available. Can be tested on real i486/pentium
+   hardware, or on any host that can run an i486/pentium PC emulator
+   (bochs or qemu)
+ - kernel loaded by grub, or by a sample bootsector (up to article 2
+   ONLY)
+ - clear separation of physical memory and virtual memory concepts,
+   even inside the kernel: no identity-mapping of the physical memory
+   inside the kernel (allows to move virtual mappings of kernel pages
+   at run-time, eg to free ISA DMA pages, and to avercome the 4G RAM
+   barrier)
+ - slab-type kernel memory allocation
+ - no swap, no reverse mapping
+ - VERY simple drivers: keyboard, x86 video memory, IDE disks
+ - logical devices: partitions, FAT filesystem, "hard-coded"
+   mountpoints only (~ MSDOS)
+ - no network stack
+ - user-level features: ELF loader (no shared libraries), processes,
+   user threads (kernel-level scheduling only), mmap API, basic VFS
+
+To understand where to look at for what, here is a brief description:
+ - Makefile: the (ONLY) makefile of the OS. Targets are basically
+   'all' and 'clean'
+ - bootstrap/ directory: code to load the kernel. Both the stuff
+   needed for a multiboot-compliant loader (eg grub) AND a bootsector
+   are provided. The bootsector may only be used up to article 2.
+ - sos/ directory: the entry routine for the kernel (main.c), various
+   systemwide header files, a set of common useful C routines
+   ("nano-klibc"), and kernel subsystems (kernel memory management,
+   etc...)
+ - hwcore/ directory: Low-level CPU- and kernel-related routines
+   (interrupt/exception management, translation tables and segment
+   registers, ...)
+ - drivers/ directory: basic kernel drivers for various (non CPU)
+   devices (keyboard, x86 video memory, bochs 0xe9 port, ...). Used
+   mainly for debugging
+ - support/ directory: scripts and configuration files to build the
+   floppy images
+ - extra/ directory: a set of configuration files to be customized for
+   non-x86 host installations (yes, we primarily develop SOS on a ppc, for
+   the x86 target of course), or for grub-less installations. See
+   README file in this directory.
+
+The code is licensed under the terms of the GNU GPL version 2 (see
+LICENSE file).
+
+Enjoy !
+
+                        David Decotigny, Thomas Petazzoni, the Kos team
+                                                   http://sos.enix.org/
+                                        http://david.decotigny.free.fr/
+                                           http://kos.enix.org/~thomas/
+                                                   http://kos.enix.org/
+
+
+--
+David Decotigny
+
+PS: Made with a Mac.

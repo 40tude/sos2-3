@@ -1,0 +1,73 @@
+--- Makefile.target	17 Mar 2004 23:46:04 -0000	1.19
++++ Makefile.target	18 Mar 2004 14:20:29 -0000
+@@ -217,7 +217,8 @@
+ # must use static linking to avoid leaving stuff in virtual address space
+ VL_OBJS=vl.o osdep.o block.o monitor.o \
+         ide.o ne2000.o pckbd.o vga.o sb16.o dma.o oss.o \
+-        fdc.o mc146818rtc.o serial.o i8259.o i8254.o pc.o
++        fdc.o mc146818rtc.o serial.o i8259.o i8254.o pc.o \
++	port-e9.o
+ ifeq ($(TARGET_ARCH), ppc)
+ VL_OBJS+= hw.o
+ endif
+--- hw/pc.c	14 Mar 2004 21:46:48 -0000	1.2
++++ hw/pc.c	18 Mar 2004 14:20:29 -0000
+@@ -371,6 +371,7 @@
+     SB16_init();
+ 
+     fdctrl_init(6, 2, 0, 0x3f0, fd_table);
++    port_e9_init();
+ 
+     cmos_init(ram_size, boot_device);
+ }
+--- /dev/null	2003-01-30 11:24:37.000000000 +0100
++++ port-e9.c	2004-03-18 15:18:52.660493187 +0100
+@@ -0,0 +1,38 @@
++/*
++ * QEMU Port 0xe9 hack
++ * 
++ * Copyright (c) 2000-2004 E. Marty, the bochs team, D. Decotigny
++ * 
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
++ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++#include <stdio.h>
++#include <unistd.h>
++#include <inttypes.h>
++
++#include "vl.h"
++
++static void bochs_e9_write(void *opaque, uint32_t address, uint32_t data)
++{
++  write(fileno(stdout), &data, 1);
++}
++
++void port_e9_init ()
++{
++   register_ioport_write(0xe9, 1, 1, bochs_e9_write, NULL);
++}
+--- vl.h	17 Mar 2004 23:17:16 -0000	1.14
++++ vl.h	18 Mar 2004 14:29:06 -0000
+@@ -268,4 +268,7 @@
+ void term_flush(void);
+ void term_print_help(void);
+ 
++/* port-e9.c */
++void port_e9_init(void);
++
+ #endif /* VL_H */

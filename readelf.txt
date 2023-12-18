@@ -1,0 +1,180 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Intel 80386
+  Version:                           0x1
+  Entry point address:               0x201000
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          24972 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         4
+  Size of section headers:           40 (bytes)
+  Number of section headers:         9
+  Section header string table index: 8
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .zoubida          PROGBITS        00200000 001000 000018 00   A  0   0  1
+  [ 2] .text             PROGBITS        00201000 002000 001f03 00  AX  0   0 4096
+  [ 3] .data             PROGBITS        00203000 004000 000020 00  WA  0   0 4096
+  [ 4] .rodata           PROGBITS        00204000 005000 0001cf 00   A  0   0 4096
+  [ 5] .bss              NOBITS          00205000 0051cf 0048c8 00  WA  0   0 4096
+  [ 6] .symtab           SYMTAB          00000000 0051d0 000750 10      7  76  4
+  [ 7] .strtab           STRTAB          00000000 005920 00082c 00      0   0  1
+  [ 8] .shstrtab         STRTAB          00000000 00614c 00003d 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x00200000 0x00200000 0x00018 0x00018 R   0x1000
+  LOAD           0x002000 0x00201000 0x00201000 0x01f03 0x01f03 R E 0x1000
+  LOAD           0x004000 0x00203000 0x00203000 0x011cf 0x068c8 RW  0x1000
+  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RWE 0x10
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .zoubida 
+   01     .text 
+   02     .data .rodata .bss 
+   03     
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+No processor specific unwind information to decode
+
+Symbol table '.symtab' contains 117 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS bootstrap/multiboot_header.asm
+     2: 00200000     0 NOTYPE  LOCAL  DEFAULT    1 header_start
+     3: 00200018     0 NOTYPE  LOCAL  DEFAULT    1 header_end
+     4: 00000000     0 FILE    LOCAL  DEFAULT  ABS bootstrap/multiboot.asm
+     5: 00004000     0 NOTYPE  LOCAL  DEFAULT  ABS MULTIBOOT_STACK_SIZE
+     6: 00205000     0 NOTYPE  LOCAL  DEFAULT    5 stack_bottom
+     7: 00209000     0 NOTYPE  LOCAL  DEFAULT    5 stack_top
+     8: 00000000     0 FILE    LOCAL  DEFAULT  ABS bochs.c
+     9: 00000000     0 FILE    LOCAL  DEFAULT  ABS x86_videomem.c
+    10: 00203000     4 OBJECT  LOCAL  DEFAULT    3 video
+    11: 00000000     0 FILE    LOCAL  DEFAULT  ABS exception_wrappers.S
+    12: 00201508     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_0
+    13: 0020154c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_1
+    14: 00201590     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_2
+    15: 002015d4     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_3
+    16: 00201618     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_4
+    17: 0020165c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_5
+    18: 002016a0     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_6
+    19: 002016e4     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_7
+    20: 00201728     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_9
+    21: 0020176c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_15
+    22: 002017b0     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_16
+    23: 002017f4     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_18
+    24: 00201838     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_19
+    25: 0020187c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_20
+    26: 002018c0     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_21
+    27: 00201904     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_22
+    28: 00201948     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_23
+    29: 0020198c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_24
+    30: 002019d0     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_25
+    31: 00201a14     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_26
+    32: 00201a58     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_27
+    33: 00201a9c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_28
+    34: 00201ae0     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_29
+    35: 00201b24     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_30
+    36: 00201b68     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_31
+    37: 00201bac     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_10
+    38: 00201bec     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_11
+    39: 00201c2c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_12
+    40: 00201c6c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_13
+    41: 00201cac     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_14
+    42: 00201cec     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_17
+    43: 00201d2c     0 FUNC    LOCAL  DEFAULT    2 sos_exception_wrapper_8
+    44: 00000000     0 FILE    LOCAL  DEFAULT  ABS irq_wrappers.S
+    45: 00201d30     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_0
+    46: 00201d78     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_1
+    47: 00201dc0     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_2
+    48: 00201e08     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_3
+    49: 00201e50     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_4
+    50: 00201e98     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_5
+    51: 00201ee0     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_6
+    52: 00201f28     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_7
+    53: 00201f70     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_8
+    54: 00201fb8     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_9
+    55: 00202000     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_10
+    56: 00202048     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_11
+    57: 00202090     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_12
+    58: 002020d8     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_13
+    59: 00202120     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_14
+    60: 00202168     0 FUNC    LOCAL  DEFAULT    2 sos_irq_wrapper_15
+    61: 00000000     0 FILE    LOCAL  DEFAULT  ABS exception.c
+    62: 00000000     0 FILE    LOCAL  DEFAULT  ABS gdt.c
+    63: 00203008    24 OBJECT  LOCAL  DEFAULT    3 gdt
+    64: 00000000     0 FILE    LOCAL  DEFAULT  ABS i8254.c
+    65: 00000000     0 FILE    LOCAL  DEFAULT  ABS i8259.c
+    66: 00000000     0 FILE    LOCAL  DEFAULT  ABS idt.c
+    67: 00209080  2048 OBJECT  LOCAL  DEFAULT    5 idt
+    68: 00000000     0 FILE    LOCAL  DEFAULT  ABS irq.c
+    69: 00000000     0 FILE    LOCAL  DEFAULT  ABS klibc.c
+    70: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    71: 00202cee   129 FUNC    LOCAL  DEFAULT    2 display_bits
+    72: 00202d6f    42 FUNC    LOCAL  DEFAULT    2 clk_it
+    73: 002098c0     4 OBJECT  LOCAL  DEFAULT    5 clock_count.1
+    74: 00202d99    42 FUNC    LOCAL  DEFAULT    2 divide_ex
+    75: 002098c4     4 OBJECT  LOCAL  DEFAULT    5 div_count.0
+    76: 00202429   162 FUNC    GLOBAL DEFAULT    2 sos_idt_setup
+    77: 00201010    10 FUNC    GLOBAL DEFAULT    2 sos_bochs_setup
+    78: 00202cc6    40 FUNC    GLOBAL DEFAULT    2 snprintf
+    79: 00201497   113 FUNC    GLOBAL DEFAULT    2 sos_x86_videomem_printf
+    80: 002026ea    54 FUNC    GLOBAL DEFAULT    2 memcpy
+    81: 00202856    83 FUNC    GLOBAL DEFAULT    2 strzcat
+    82: 00202950   886 FUNC    GLOBAL DEFAULT    2 vsnprintf
+    83: 00202251    47 FUNC    GLOBAL DEFAULT    2 sos_exception_get_routine
+    84: 002040a0     0 NOTYPE  GLOBAL DEFAULT    4 sos_irq_wrapper_array
+    85: 002027cf    50 FUNC    GLOBAL DEFAULT    2 strnlen
+    86: 00201355    69 FUNC    GLOBAL DEFAULT    2 sos_x86_videomem_cls
+    87: 002023d1    88 FUNC    GLOBAL DEFAULT    2 sos_i8259_disable_irq_line
+    88: 002012f8    61 FUNC    GLOBAL DEFAULT    2 sos_bochs_printf
+    89: 00209000   128 OBJECT  GLOBAL DEFAULT    5 sos_exception_handler_array
+    90: 00202375    92 FUNC    GLOBAL DEFAULT    2 sos_i8259_enable_irq_line
+    91: 002025f9    13 FUNC    GLOBAL DEFAULT    2 sos_irq_setup
+    92: 002021b0    29 FUNC    GLOBAL DEFAULT    2 sos_install_dbl_fault_exceptions
+    93: 00209880    64 OBJECT  GLOBAL DEFAULT    5 sos_irq_handler_array
+    94: 00202325    80 FUNC    GLOBAL DEFAULT    2 sos_i8259_setup
+    95: 002028ef    97 FUNC    GLOBAL DEFAULT    2 strncmp
+    96: 002022b4   113 FUNC    GLOBAL DEFAULT    2 sos_i8254_set_frequency
+    97: 0020274a    94 FUNC    GLOBAL DEFAULT    2 memcmp
+    98: 00201236   194 FUNC    GLOBAL DEFAULT    2 sos_bochs_hexdump
+    99: 00202720    42 FUNC    GLOBAL DEFAULT    2 memset
+   100: 002021cd   132 FUNC    GLOBAL DEFAULT    2 sos_exception_set_routine
+   101: 0020139a   140 FUNC    GLOBAL DEFAULT    2 sos_x86_videomem_putstring
+   102: 002028a9    70 FUNC    GLOBAL DEFAULT    2 strcmp
+   103: 00201042   500 FUNC    GLOBAL DEFAULT    2 sos_bochs_puthex
+   104: 002024cb   193 FUNC    GLOBAL DEFAULT    2 sos_idt_set_wrapper
+   105: 00204020     0 NOTYPE  GLOBAL DEFAULT    4 sos_exception_wrapper_array
+   106: 002026c8    34 FUNC    GLOBAL DEFAULT    2 sos_irq_get_routine
+   107: 00201426   113 FUNC    GLOBAL DEFAULT    2 sos_x86_videomem_putchar
+   108: 00201335    32 FUNC    GLOBAL DEFAULT    2 sos_x86_videomem_setup
+   109: 00202801    85 FUNC    GLOBAL DEFAULT    2 strzcpy
+   110: 0020258c   109 FUNC    GLOBAL DEFAULT    2 sos_idt_get_wrapper
+   111: 00202dc3   320 FUNC    GLOBAL DEFAULT    2 sos_main
+   112: 00201000     0 NOTYPE  GLOBAL DEFAULT    2 start
+   113: 00202280    52 FUNC    GLOBAL DEFAULT    2 sos_gdt_setup
+   114: 00202606   194 FUNC    GLOBAL DEFAULT    2 sos_irq_set_routine
+   115: 0020101a    40 FUNC    GLOBAL DEFAULT    2 sos_bochs_putstring
+   116: 002027a8    39 FUNC    GLOBAL DEFAULT    2 strlen
+
+No version information found in this file.

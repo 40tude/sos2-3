@@ -1,0 +1,118 @@
+
+                    SOS: A Simple Operating System
+
+               Compilation/Installation/Test instructions
+
+
+Compilation
+===========
+
+IMPORTANT
+---------
+
+Don't forget to run 'make clean' before 'make' after you have modified
+any source or header file(s).
+
+
+On a x86 host where grub is correctly installed
+-----------------------------------------------
+
+Simply run 'make'
+
+
+On a non-x86 host (without grub of course !)
+--------------------------------------------
+
+See extra/README
+
+
+On an x86 host without Grub, or with a buggy Grub
+-------------------------------------------------
+
+See extra/README
+
+How do I know I have a buggy grub installation ? Answer: in the qemu
+PC emulator, Grub hangs while loading the kernel
+
+
+Installation
+============
+
+Nothing special to do besides compiling
+
+
+Test the SOS Kernel
+===================
+
+On a x86 real machine with Grub installed
+-----------------------------------------
+
+ 1st method
+   => Boot the sos.elf file (append 'kernel=<path_to>sos.elf' in the
+      menu.lst or type it on Grub's command line) from a hard disk, a
+      floppy, or from the network
+
+ 2nd method
+   => Copy the file 'fd.img' to a floppy and boot from it
+
+
+On a x86 real machine without Grub installed
+--------------------------------------------
+
+ 1st method
+   => see extra/README to compile with the grub floppy image we provide,
+      copy the file 'fd.img' to a floppy, and boot from it
+
+ 2nd method
+   => see extra/README to compile with the boot sector we provide (up to
+      article 2 only), copy the file 'extra/sos_bsect.img' to a floppy,
+      and boot from it
+
+
+Inside a PC emulator (x86 and non-x86 hosts)
+--------------------------------------------
+
+Tested on both the bochs emulator (x86/linux, sparc/solaris and
+ppc/linux hosts, 'apt-get install bochs-x vgabios' on debian
+testing/unstable), and the qemu system emulator (with libsdl
+installed: 'apt-get install libsdl1.2-dev' on debian
+testing/unstable).
+
+ 1/ Grub is installed on the host (x86 hosts only)
+ - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   bochs: boot from the file 'fd.img'. Example of a ~/.bochsrc:
+     floppya:     1_44=/home/d2/sos/fd.img, status=inserted
+     romimage:    file=/usr/share/bochs/BIOS-bochs-latest, address=0xf0000
+     vgaromimage: /usr/share/vgabios/vgabios.bin
+     megs:63 # 63 Mo de RAM
+
+   qemu: run 'qemu -fda fd.img'
+     If grub hangs while loading the kernel, please go to method 2/
+
+ 2/ Grub is not installed (all hosts)
+ - - - - - - - - - - - - - - - - - -
+
+  See extra/README to generate a floppy image with the Grub floppy
+  image we provide, and:
+
+   bochs: boot from the file 'fd.img'
+
+   qemu: run 'qemu -fda fd.img'
+
+ 3/ Bonus: boot with the bootsector we provide (all hosts, up to art. 2 ONLY !)
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  
+  See extra/README to generate a floppy image with the boot sector we
+  provide, and:
+
+   bochs: boot from the file 'extra/sos_bsect.img'
+
+   qemu: run 'qemu -fda extra/sos_qemu.img'
+
+  NOTE: After article 2, this way of booting is not supported: please
+  use the method 2/ above.
+
+
+--
+David Decotigny

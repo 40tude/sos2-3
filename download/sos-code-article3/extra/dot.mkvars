@@ -1,0 +1,29 @@
+# For cross-compilation and/or installations without grub available,
+# copy this file as .mkvars to the root directory of the SOS sources,
+# and customize the CC/LD/... variables. You still need the mtools
+# installed and running
+
+CC := i586-gnu-gcc
+LD := i586-gnu-ld
+OBJCOPY := i586-gnu-objcopy
+CFLAGS += -O3
+
+# Configuration of mtools
+MTOOLSRC = extra/mtoolsrc
+export MTOOLSRC
+
+$(MULTIBOOT_IMAGE): $(KERNEL_OBJ) menu.txt
+	gzip -dc < extra/grub.img.gz > $@
+	mcopy menu.txt v:/boot/grub/
+	mmd v:/system
+	mcopy sos.elf v:/system/sos.elf
+
+menu.txt:
+	echo timeout 0 > $@
+	echo default 0 >> $@
+	echo title  SOS >> $@
+	echo "root   (fd0)" >> $@
+	echo kernel /system/sos.elf >> $@
+
+runbochs: all
+	echo c | bochs -q
