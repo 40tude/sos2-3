@@ -169,15 +169,22 @@ void sos_main(unsigned long magic, unsigned long addr) {
   /* Multiboot says: "The value returned for upper memory is maximally
      the address of the first upper memory hole minus 1 megabyte.". It
      also adds: "It is not guaranteed to be this value." aka "YMMV" ;) */
-  struct multiboot_tag *tag;
-  for (tag = (struct multiboot_tag *)(addr + 8); tag->type != MULTIBOOT_TAG_TYPE_END; tag = (struct multiboot_tag *)((multiboot_uint8_t *)tag + ((tag->size + 7) & ~7))) {
+  // struct multiboot_tag *tag;
+  // for (tag = (struct multiboot_tag *)(addr + 8); tag->type != MULTIBOOT_TAG_TYPE_END; tag = (struct multiboot_tag *)((multiboot_uint8_t *)tag + ((tag->size + 7) & ~7))) {
 
-    switch (tag->type) {
-    case MULTIBOOT_TAG_TYPE_BASIC_MEMINFO:
-      mem_upper = ((struct multiboot_tag_basic_meminfo *)tag)->mem_upper;
-      break;
-    }
-  }
+  //   switch (tag->type) {
+  //   case MULTIBOOT_TAG_TYPE_BASIC_MEMINFO:
+  //     mem_upper = ((struct multiboot_tag_basic_meminfo *)tag)->mem_upper;
+  //     break;
+  //   }
+  // }
+
+  // Attention, aucune vérification d'erreur etc...
+  struct multiboot_tag *tag = (struct multiboot_tag *)(addr + 8);
+  while (tag->type != MULTIBOOT_TAG_TYPE_BASIC_MEMINFO)
+    tag = (struct multiboot_tag *)((multiboot_uint8_t *)tag + ((tag->size + 7) & ~7));
+  mem_upper = ((struct multiboot_tag_basic_meminfo *)tag)->mem_upper;
+
   // sos_physmem_setup((mbi->mem_upper << 10) + (1 << 20), &sos_kernel_core_base_paddr, &sos_kernel_core_top_paddr);
   sos_physmem_setup((mem_upper << 10) + (1 << 20), &sos_kernel_core_base_paddr, &sos_kernel_core_top_paddr);
   test_physmem();
